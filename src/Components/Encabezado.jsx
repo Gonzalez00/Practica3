@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import logo from "../assets/react.svg";
-import { useAuth } from "../database/authcontext";
+import { useAuth } from "../Database/Authcontext";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "../App.css";
 
