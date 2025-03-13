@@ -8,6 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     useEffect(() => {
     const auth = getAuth(appfirebase);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -21,6 +22,9 @@ export const AuthProvider = ({ children }) => {
     await signOut(auth);
     setIsLoggedIn(false);
     };
+
     return (
-    <AuthContext.Provider value={{ user, isLoggedIn, logout }}> (children) </AuthContext.Provider> ); I
+    <AuthContext.Provider value={{ user, isLoggedIn, logout }}> 
+    {children}
+    </AuthContext.Provider> ); I
     };
