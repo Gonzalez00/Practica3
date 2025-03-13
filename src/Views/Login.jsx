@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../Components/LoginForm";
 import { appfirebase } from "../Database/FirebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../Database/Authcontext";
