@@ -74,6 +74,23 @@ const Encabezado = () => {
                 {isCollapsed ? <i className="bi-house-door-fill me-2"></i> : null}
                 <strong>Inicio</strong>
               </Nav.Link>
+
+              <Nav.Link
+                onClick={() => handleNavigate("/Categorias")}
+                className={isCollapsed ? "color-texto-marca" : "text-white"}
+              >
+                {isCollapsed ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Categorias</strong>
+              </Nav.Link>
+
+              <Nav.Link
+                onClick={() => handleNavigate("/Productos")}
+                className={isCollapsed ? "color-texto-marca" : "text-white"}
+              >
+                {isCollapsed ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Productos</strong>
+              </Nav.Link>
+
               {isLoggedIn ? (
                 <>
                   <Nav.Link onClick={handleLogout} className={isCollapsed ? "text-black" : "text-white"}>
