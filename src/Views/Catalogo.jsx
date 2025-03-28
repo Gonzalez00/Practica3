@@ -83,6 +83,7 @@ const Catalogo = () => {
 
   return (
     <Container className="mt-5">
+      <br />
       <h4>Catálogo de Productos</h4>
       <Row>
         <Col lg={3} md={3} sm={6}>
