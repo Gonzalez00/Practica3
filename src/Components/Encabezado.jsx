@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Logo from "../assets/Coffee.svg";
+import Logo from "../assets/Latte.png";
 import { useAuth } from "../Database/Authcontext";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "../App.css";
@@ -97,6 +97,14 @@ const Encabezado = () => {
               >
                 {isCollapsed ? <i className="bi-house-door-fill me-2"></i> : null}
                 <strong>Catalogo</strong>
+              </Nav.Link>
+
+              <Nav.Link
+                onClick={() => handleNavigate("/Libros")}
+                className={isCollapsed ? "color-texto-marca" : "text-white"}
+              >
+                {isCollapsed ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Libros</strong>
               </Nav.Link>
 
               {isLoggedIn ? (
