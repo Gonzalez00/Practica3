@@ -14,6 +14,7 @@ import TablaProductos from "../Components/Productos/TablaProductos";
 import ModalRegistroProducto from "../Components/Productos/ModalRegistroProducto";
 import ModalEdicionProducto from "../Components/Productos/ModalEdicionProducto";
 import ModalEliminacionProducto from "../Components/Productos/ModalEliminacionProducto";
+import CuadroBusquedas from "../Components/Busqueda/CuadroBusquedas";
 
 const Productos = () => {
   // Estados para manejo de datos
@@ -30,6 +31,8 @@ const Productos = () => {
   });
   const [productoEditado, setProductoEditado] = useState(null);
   const [productoAEliminar, setProductoAEliminar] = useState(null);
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   // Referencia a las colecciones en Firestore
   const productosCollection = collection(db, "productos");
@@ -45,7 +48,7 @@ const Productos = () => {
         id: doc.id,
       }));
       setProductos(fetchedProductos);
-
+      setProductosFiltrados(fetchedProductos);
       // Obtener categorías
       const categoriasData = await getDocs(categoriasCollection);
       const fetchedCategorias = categoriasData.docs.map((doc) => ({
@@ -62,6 +65,18 @@ const Productos = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleSearchChange = (e) => {
+    const text = e.target.value.toLowerCase();
+    setSearchText(text);
+
+    const filtrados = productos.filter((producto) => 
+      producto.nombre.toLowerCase().includes(text) ||
+      producto.precio.toLowerCase().includes(text) ||
+      producto.categoria.toLowerCase().includes(text)
+    );
+    setProductosFiltrados(filtrados);
+  }
 
   // Manejador de cambios en inputs del formulario de nuevo producto
   const handleInputChange = (e) => {
@@ -164,8 +179,12 @@ const Productos = () => {
       <Button className="mb-3" onClick={() => setShowModal(true)}>
         Agregar producto
       </Button>
+      <CuadroBusquedas
+        searchText={searchText}
+        handleSearchChange={handleSearchChange}
+      />
       <TablaProductos
-        productos={productos}
+        productos={productosFiltrados}
         openEditModal={openEditModal}
         openDeleteModal={openDeleteModal}
       />

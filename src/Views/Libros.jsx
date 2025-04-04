@@ -16,6 +16,7 @@ import ModalRegistroLibro from "../Components/Libros/ModalRegistroLibro";
 import ModalEdicionLibro from "../Components/Libros/ModalEdicionLibro";
 import ModalEliminacionLibro from "../Components/Libros/ModalEliminacionLibro";
 import { useAuth } from "../Database/Authcontext";
+import CuadroBusquedas from "../Components/Busqueda/CuadroBusquedas";
 
 const Libros = () => {
   const [libros, setLibros] = useState([]);
@@ -30,6 +31,8 @@ const Libros = () => {
   });
   const [libroEditado, setLibroEditado] = useState(null);
   const [libroAEliminar, setLibroAEliminar] = useState(null);
+  const [librosFiltrados, setLibrosFiltrados] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [pdfFile, setPdfFile] = useState(null);
   const [error, setError] = useState(null);
 
@@ -46,6 +49,7 @@ const Libros = () => {
         id: doc.id,
       }));
       setLibros(fetchedLibros);
+      setLibrosFiltrados(fetchedLibros);
     } catch (error) {
       console.error("Error al obtener datos:", error);
       setError("Error al cargar los datos. Intenta de nuevo.");
@@ -59,6 +63,18 @@ const Libros = () => {
       fetchData();
     }
   }, [isLoggedIn, navigate]);
+
+  const handleSearchChange = (e) => {
+    const text = e.target.value.toLowerCase();
+    setSearchText(text);
+
+    const filtrados = libros.filter((libro) => 
+      libro.nombre.toLowerCase().includes(text) ||
+      libro.autor.toLowerCase().includes(text) ||
+      libro.autor.toLowerCase().includes(text)
+    );
+    setLibrosFiltrados(filtrados);
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -195,8 +211,12 @@ const Libros = () => {
       <Button className="mb-3" onClick={() => setShowModal(true)}>
         Agregar libro
       </Button>
+      <CuadroBusquedas
+        searchText={searchText}
+        handleSearchChange={handleSearchChange}
+      />
       <TablaLibros
-        libros={libros}
+        libros={librosFiltrados}
         openEditModal={openEditModal}
         openDeleteModal={openDeleteModal}
       />
