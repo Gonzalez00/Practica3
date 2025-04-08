@@ -15,6 +15,7 @@ import ModalRegistroCategoria from "../Components/Categorias/ModalRegistroCatego
 import ModalEdicionCategoria from "../Components/Categorias/ModalEdicionCategoria";
 import ModalEliminacionCategoria from "../Components/Categorias/ModalEliminacionCategoria";
 import CuadroBusquedas from "../Components/Busqueda/CuadroBusquedas";
+import Paginacion from "../Components/Ordenamiento/Paginacion";
 
 
 const Categorias = () => {
@@ -32,6 +33,9 @@ const Categorias = () => {
   const [categoriaAEliminar, setCategoriaAEliminar] = useState(null);
   const [categoriasFiltradas, setCategoriasFiltradas] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Número de productos por página
 
   // Referencia a la colección de categorías en Firestore
   const categoriasCollection = collection(db, "categorias");
@@ -143,6 +147,12 @@ const Categorias = () => {
     setShowDeleteModal(true);
   };
 
+  // Calcular productos paginados
+  const paginatedCategorias = categoriasFiltradas.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   // Renderizado del componente
   return (
     <Container className="mt-5">
@@ -156,9 +166,19 @@ const Categorias = () => {
         handleSearchChange={handleSearchChange}
       />
       <TablaCategorias
-        categorias={categoriasFiltradas}
         openEditModal={openEditModal}
         openDeleteModal={openDeleteModal}
+        categorias={paginatedCategorias} // Pasar productos paginados
+        totalItems={categorias.length} // Total de productos
+        itemsPerPage={itemsPerPage}   // Elementos por página
+        currentPage={currentPage}     // Página actual
+        setCurrentPage={setCurrentPage} // Método para cambiar página
+      />
+      <Paginacion
+        itemsPerPage={itemsPerPage}
+        totalItems={categoriasFiltradas.length}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
       <ModalRegistroCategoria
         showModal={showModal}

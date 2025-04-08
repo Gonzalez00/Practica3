@@ -15,6 +15,7 @@ import ModalRegistroProducto from "../Components/Productos/ModalRegistroProducto
 import ModalEdicionProducto from "../Components/Productos/ModalEdicionProducto";
 import ModalEliminacionProducto from "../Components/Productos/ModalEliminacionProducto";
 import CuadroBusquedas from "../Components/Busqueda/CuadroBusquedas";
+import Paginacion from "../Components/Ordenamiento/Paginacion";
 
 const Productos = () => {
   // Estados para manejo de datos
@@ -33,6 +34,9 @@ const Productos = () => {
   const [productoAEliminar, setProductoAEliminar] = useState(null);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Número de productos por página
 
   // Referencia a las colecciones en Firestore
   const productosCollection = collection(db, "productos");
@@ -171,6 +175,13 @@ const Productos = () => {
     setShowDeleteModal(true);
   };
 
+
+  // Calcular productos paginados
+  const paginatedProductos = productosFiltrados.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   // Renderizado del componente
   return (
     <Container className="mt-5">
@@ -184,9 +195,19 @@ const Productos = () => {
         handleSearchChange={handleSearchChange}
       />
       <TablaProductos
-        productos={productosFiltrados}
         openEditModal={openEditModal}
         openDeleteModal={openDeleteModal}
+        productos={paginatedProductos} // Pasar productos paginados
+        totalItems={productos.length} // Total de productos
+        itemsPerPage={itemsPerPage}   // Elementos por página
+        currentPage={currentPage}     // Página actual
+        setCurrentPage={setCurrentPage} // Método para cambiar página
+      />
+      <Paginacion
+        itemsPerPage={itemsPerPage}
+        totalItems={productosFiltrados.length}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
       <ModalRegistroProducto
         showModal={showModal}
