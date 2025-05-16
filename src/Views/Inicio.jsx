@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import ModalInstalacionIOS from "../Components/Inicio/ModalInstalacionIOS";
 
 const Inicio = () => {
