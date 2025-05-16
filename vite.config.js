@@ -12,7 +12,7 @@ export default defineConfig({
       includeAssets: [
         "Latte.png",
         "icons/icon-192x192.png",
-        "icons/icon-512x512",
+        "icons/icon-512x512.png",
       ],
       workbox: {
         globPatterns: ["**/*.{js,css,html,png,jpg,svg,ico,webmanifest}"],
