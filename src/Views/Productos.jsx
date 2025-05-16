@@ -1,7 +1,7 @@
 // Importaciones
 import React, { useState, useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
-import { db } from "../Database/FirebaseConfig";
+import {db} from "../Database/FirebaseConfig";
 import {
   collection,
   getDocs,
@@ -222,6 +222,19 @@ const Productos = () => {
     (currentPage - 1) * itemsPerPage, 
     currentPage * itemsPerPage);
 
+
+  const handleCopy = (producto) => {
+    const rowData = `Nombre: ${producto.nombre}\nPrecio: C$${producto.precio}\nCategoría: ${producto.categoria}`;
+    navigator.clipboard
+      .writeText(rowData)
+      .then(() => {
+        console.log("Datos copiados al portapapeles:\n" + rowData);
+      })
+      .catch((err) => {
+        console.error("Error al copiar al portapapeles:", err);
+      });
+  };
+
   return (
     <Container className="mt-5">
       <br />
@@ -240,7 +253,8 @@ const Productos = () => {
       totalItems={productos.length} 
       itemsPerPage={itemsPerPage} 
       currentPage={currentPage} 
-      setCurrentPage={setCurrentPage} 
+      setCurrentPage={setCurrentPage}
+      handleCopy={handleCopy} 
       />
       <Paginacion 
       itemsPerPage={itemsPerPage} 
