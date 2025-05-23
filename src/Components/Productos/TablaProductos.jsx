@@ -39,6 +39,7 @@ const TablaProductos = ({ productos, openEditModal, openDeleteModal, handleCopy 
               <Button
                 variant="outline-danger"
                 size="sm"
+                className="me-2"
                 onClick={() => openDeleteModal(producto)}
               >
                 <i className="bi bi-trash"></i>

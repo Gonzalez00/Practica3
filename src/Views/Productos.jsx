@@ -1,6 +1,6 @@
 // Importaciones
 import React, { useState, useEffect } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Row, Col } from "react-bootstrap";
 import {db} from "../Database/FirebaseConfig";
 import {
   collection,
@@ -239,13 +239,19 @@ const Productos = () => {
     <Container className="mt-5">
       <br />
       <h4>Gestión de Productos</h4>
-      <Button className="mb-3" onClick={() => setShowModal(true)}>
+      <Row>
+      <Col lg={2} md={2} sm={2} xs={3}>
+      <Button className="mb-3" onClick={() => setShowModal(true)} style={{ width: "100%" }}>
         Agregar producto
       </Button>
+      </Col>
+      <Col lg={3} md={3} sm={3} xs={5}>
       <CuadroBusquedas 
       searchText={searchText} 
       handleSearchChange={handleSearchChange} 
       />
+      </Col>
+      </Row>
       <TablaProductos 
       openEditModal={openEditModal} 
       openDeleteModal={openDeleteModal} 

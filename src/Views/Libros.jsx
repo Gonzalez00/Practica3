@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Alert } from "react-bootstrap";
+import { Container, Button, Alert, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { db, storage } from "../Database/FirebaseConfig";
 import {
@@ -208,13 +208,19 @@ const Libros = () => {
       <br />
       <h4>Gestión de Libros</h4>
       {error && <Alert variant="danger">{error}</Alert>}
-      <Button className="mb-3" onClick={() => setShowModal(true)}>
+      <Row>
+      <Col lg={2} md={2} sm={2} xs={3}>
+      <Button className="mb-3" onClick={() => setShowModal(true)} style={{ width: "100%" }}>
         Agregar libro
       </Button>
+      </Col>
+      <Col lg={3} md={3} sm={3} xs={5}>
       <CuadroBusquedas
         searchText={searchText}
         handleSearchChange={handleSearchChange}
       />
+      </Col>
+      </Row>
       <TablaLibros
         libros={librosFiltrados}
         openEditModal={openEditModal}
