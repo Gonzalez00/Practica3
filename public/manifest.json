@@ -7,7 +7,7 @@
     "background_color": "#ffffff",
     "theme_color": "#007bff",
     "scope": "/",
-    "iconos": [
+    "icons": [
       {
         "src": "/icons/icon-192x192.png",
         "sizes": "192x192",
