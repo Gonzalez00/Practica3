@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Button, Image } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-const TablaProductos = ({ productos, openEditModal, openDeleteModal, handleCopy }) => {
+const TablaProductos = ({ productos, openEditModal, openDeleteModal, handleCopy, generarPDFDetalleProducto }) => {
   return (
     <Table striped bordered hover responsive>
       <thead>
@@ -27,6 +27,16 @@ const TablaProductos = ({ productos, openEditModal, openDeleteModal, handleCopy 
             <td>{producto.categoria}</td>
             <td>
               
+              <Button
+                variant="outline-secondary"
+                size="sm"
+                className="me-2"
+                onClick={() => generarPDFDetalleProducto(producto)}
+                   
+                >
+                 <i className="bi bi-filetype-pdf" />
+              </Button>
+
               <Button
                 variant="outline-warning"
                 size="sm"
